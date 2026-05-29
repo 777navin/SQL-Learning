@@ -1,341 +1,155 @@
-# SQL Learning Journey
+# Day 1: SQL Fundamentals
 
-## What is SQL?
+## Introduction
 
-SQL (Structured Query Language) is the standard language used to communicate with relational databases. It helps users store, retrieve, manage, and manipulate data efficiently.
+SQL (Structured Query Language) is the standard language used to communicate with relational databases. It is used to store, retrieve, manage, and manipulate data efficiently. SQL is a declarative language, meaning users specify what data they need, and the database system determines how to retrieve it.
 
-SQL is a declarative language, which means you tell the database what data you need, and the database decides how to retrieve it.
-
-### Advanced Definition
-
-SQL is a domain-specific declarative programming language designed for managing, querying, and manipulating data stored in Relational Database Management Systems (RDBMS).
+This topic also covers the basics of Databases, DBMS, RDBMS, SQL History, CRUD Operations, Types of DBMS, and the Relational Model.
 
 ---
 
-# History of SQL
+## Syntax
 
-- In 1970, Edgar F. Codd at IBM introduced the Relational Model.
-- SQL was initially called SEQUEL (Structured English Query Language).
-- Later, the name was shortened to SQL.
-- SQL became the standard language for relational databases.
+```sql
+-- SQL is used to communicate with databases
 
----
-
-# Why SQL Was Introduced
-
-Before SQL and DBMS, organizations used traditional file systems to store information.
-
-### Problems with Traditional File Systems
-
-1. Data Redundancy
-2. Data Inconsistency
-3. Difficult Data Access
-4. Slow Retrieval Process
-5. Limited Multi-User Access
-6. No Proper Backup and Recovery
-7. Poor Data Management
-
-SQL and DBMS were introduced to solve these problems.
+SELECT * FROM table_name;
+```
 
 ---
 
-# What is Data?
+## Example
 
-Data refers to raw and unorganized facts and figures.
-
-Examples:
-
-- Numbers
-- Names
-- Text
-- Images
-- Dates
-- Symbols
-
-Raw data can be processed and analyzed to generate meaningful information.
+```sql
+SELECT 'Hello SQL';
+```
 
 ---
 
-# What is a Database?
+## Output
 
-A Database is an organized collection of structured data that is stored electronically and can be accessed, managed, and updated efficiently.
+```text
+Hello SQL
+```
 
-### Example
-
-Library = Database
-
-Books = Data
-
-A library stores thousands of books in an organized manner. Similarly, a database stores information in an organized format.
+The query returns a simple string value.
 
 ---
 
-# What is DBMS?
+## Important Notes
 
-DBMS (Database Management System) is software that allows users to create, manage, store, retrieve, and manipulate data within databases.
-
-### Examples of DBMS
-
-- MySQL
-- PostgreSQL
-- Oracle Database
-- Microsoft SQL Server
-- SQLite
-- IBM Db2
+* SQL stands for Structured Query Language.
+* SQL is a declarative language.
+* SQL is not a database; it is a language used to communicate with databases.
+* SQL was originally called SEQUEL.
+* Edgar F. Codd introduced the Relational Model in 1970.
+* SQL works mainly with Relational Database Management Systems (RDBMS).
+* Rows are called Tuples.
+* Columns are called Attributes.
 
 ---
 
-# Relationship Between SQL, DBMS, and Database
+## Common Errors
 
-Client Application
-        │
-        ▼
-       SQL
-        │
-        ▼
-       DBMS
-        │
-        ▼
-    Database
-Explanation
-SQL is the language.
-DBMS is the software.
-Database is where the data is stored.
-How SQL Works
-Write SQL Query
-        │
-        ▼
-Send Query To Server
-        │
-        ▼
-Execute Query
-        │
-        ▼
-Return Result
+### Error 1
 
-SQL acts as a communication bridge between users and the database.
+Confusing SQL with DBMS.
 
-Important Note
+**Wrong Understanding**
 
-SQL is NOT a database.
+```text
+SQL = Database
+```
 
-SQL is only a language used to communicate with a Database Management System (DBMS).
+**Correct Understanding**
 
-CRUD Operations
+```text
+SQL = Language
+DBMS = Software
+Database = Data Storage
+```
 
-CRUD represents the four basic operations performed on data.
+### Error 2
 
-Operation	Description
-Create	Add new records
-Read	Retrieve records
-Update	Modify records
-Delete	Remove records
-Types of DBMS
-1. Hierarchical DBMS
+Confusing Database and DBMS.
 
-Data is organized in a tree-like structure.
+**Database**
 
-Example
-Company
- ├── HR
- ├── Finance
- └── IT
-2. Network DBMS
+Stores data.
 
-Data is connected through multiple relationships.
+**DBMS**
 
-A record can have multiple parent records.
+Manages databases and provides access to data.
 
-3. Relational DBMS (RDBMS)
+---
 
-Data is stored in tables consisting of rows and columns.
+## Interview Questions
 
-Examples:
+### Q1. What is SQL?
 
-MySQL
-PostgreSQL
-Oracle
-SQL Server
-4. Cloud Databases
+SQL (Structured Query Language) is a standard language used to communicate with relational databases for storing, retrieving, updating, and managing data.
 
-Databases hosted on cloud platforms.
+### Q2. Is SQL a Programming Language?
 
-Examples:
+SQL is a domain-specific declarative language designed for database operations.
 
-Amazon RDS
-Google Cloud SQL
-Azure SQL Database
-5. NoSQL Databases
+### Q3. What was SQL originally called?
 
-Designed for unstructured and semi-structured data.
+SQL was originally called SEQUEL (Structured English Query Language).
 
-Examples:
+### Q4. Who introduced the Relational Model?
 
-MongoDB
-Cassandra
-Redis
-Components of a DBMS
+Edgar F. Codd introduced the Relational Model at IBM in 1970.
 
-A DBMS requires the following components:
+### Q5. What is a Database?
 
-1. Hardware
+A database is an organized collection of structured data.
 
-Physical devices such as servers, storage drives, and networking equipment.
+### Q6. What is DBMS?
 
-2. Software
+A Database Management System (DBMS) is software used to create, manage, store, and retrieve data from databases.
 
-DBMS software that manages databases.
+### Q7. What is RDBMS?
 
-3. Data
+An RDBMS (Relational Database Management System) stores data in tables consisting of rows and columns.
 
-Actual information stored in the database.
+### Q8. What are CRUD Operations?
 
-4. Procedures
+CRUD stands for:
 
-Instructions and rules for using the database system.
+* Create
+* Read
+* Update
+* Delete
 
-5. Database Access Language
+### Q9. What are Tuples and Attributes?
 
-Languages used to communicate with databases, such as SQL.
+* Tuple = Row
+* Attribute = Column
 
-6. Users
+### Q10. Name some popular DBMS software.
 
-People who interact with the database.
+* MySQL
+* PostgreSQL
+* Oracle Database
+* Microsoft SQL Server
+* SQLite
+* IBM Db2
 
-Examples:
+---
 
-Database Administrator (DBA)
-Developers
-End Users
-Relational Model
+## Commands Covered
 
-The Relational Model stores data in the form of relations (tables).
+No major SQL commands were covered in this topic.
 
-Each relation contains:
+Only introductory syntax:
 
-Rows
+```sql
+SELECT 'Hello SQL';
+```
 
-Rows are called Tuples.
+---
 
-Each row represents a single record.
+## Summary
 
-Columns
-
-Columns are called Attributes.
-
-Each column represents a property of the data.
-
-Example
-Student_ID	Name	Age
-101	John	20
-102	Emma	21
-
-Here:
-
-Rows = Tuples
-Columns = Attributes
-
-The Relational Model is based on:
-
-Relational Algebra
-Relational Calculus
-SQL Command Categories
-
-SQL commands are divided into five major categories.
-
-DDL (Data Definition Language)
-
-Used to define and manage database structures.
-
-Commands:
-
-CREATE
-ALTER
-DROP
-TRUNCATE
-RENAME
-DML (Data Manipulation Language)
-
-Used to modify data stored in tables.
-
-Commands:
-
-INSERT
-UPDATE
-DELETE
-DQL (Data Query Language)
-
-Used to retrieve data.
-
-Commands:
-
-SELECT
-DCL (Data Control Language)
-
-Used to control user permissions.
-
-Commands:
-
-GRANT
-REVOKE
-TCL (Transaction Control Language)
-
-Used to manage database transactions.
-
-Commands:
-
-COMMIT
-ROLLBACK
-SAVEPOINT
-Database vs DBMS
-Database	DBMS
-Collection of data	Software used to manage data
-Stores information	Manages information
-Passive component	Active component
-Example: Student Database	Example: MySQL
-Key Interview Questions
-What is SQL?
-
-SQL is a standard language used to communicate with relational databases.
-
-Is SQL a Programming Language?
-
-SQL is a declarative and domain-specific language.
-
-What is DBMS?
-
-DBMS is software used to create, manage, and manipulate databases.
-
-What is RDBMS?
-
-RDBMS is a DBMS that stores data in tables using the relational model.
-
-Difference Between Database and DBMS?
-
-A database stores data, while a DBMS manages that data.
-
-What are CRUD Operations?
-
-Create, Read, Update, and Delete.
-
-What are Tuples and Attributes?
-Tuple = Row
-Attribute = Column
-Name the Types of DBMS.
-Hierarchical DBMS
-Network DBMS
-Relational DBMS
-Cloud Database
-NoSQL Database
-Summary
-SQL stands for Structured Query Language.
-SQL is used to communicate with databases.
-SQL is a declarative language.
-Database stores data.
-DBMS manages databases.
-RDBMS stores data in tables.
-Rows are called Tuples.
-Columns are called Attributes.
-CRUD operations are Create, Read, Update, and Delete.
-SQL commands are categorized into DDL, DML, DQL, DCL, and TCL.
-SQL is a language, not a database.
+In this lesson, we learned the fundamentals of SQL, including its history, purpose, CRUD operations, databases, DBMS, RDBMS, types of DBMS, relational model concepts, and the role of SQL as a language for communicating with databases. This forms the foundation for all future SQL topics.
