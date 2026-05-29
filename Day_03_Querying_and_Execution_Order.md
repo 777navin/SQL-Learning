@@ -1,232 +1,329 @@
-Day 3 - SQL SELECT Statement & Data Retrieval
-📖 Overview
+# Day 3: SELECT Statement & Data Retrieval
 
-The SELECT statement is the most frequently used SQL command. It is used to retrieve data from one or more tables.
+## Introduction
 
-What SELECT Can Do
-Retrieve all columns using *
-Retrieve specific columns by name
-Filter data using WHERE
-Sort data using ORDER BY
-Limit records using LIMIT
-Remove duplicates using DISTINCT
-Perform aggregation using COUNT(), AVG(), SUM(), MAX(), MIN()
-Group records using GROUP BY
-Filter groups using HAVING
-1. Select Specific Columns
-SELECT column_name1, column_name2
+The `SELECT` statement is the most commonly used SQL command. It is used to retrieve data from one or more tables. Using SELECT, we can fetch specific columns, all columns, filter records, sort data, limit results, remove duplicates, perform calculations, and group data.
+
+---
+
+## Syntax
+
+```sql
+SELECT column_name
 FROM table_name;
-Example
+```
+
+Retrieve all columns:
+
+```sql
+SELECT *
+FROM table_name;
+```
+
+---
+
+## Example
+
+### Select Specific Columns
+
+```sql
 SELECT id, name
 FROM students;
-2. Select All Columns
+```
+
+### Select All Columns
+
+```sql
 SELECT *
 FROM students;
-Examples
+```
+
+### Filter Data Using WHERE
+
+```sql
+SELECT *
+FROM students
+WHERE city = 'Pune';
+```
+
+### Sort Data
+
+```sql
+SELECT *
+FROM students
+ORDER BY marks DESC;
+```
+
+### Limit Records
+
+```sql
+SELECT *
+FROM students
+LIMIT 3;
+```
+
+---
+
+## Output
+
+### Query
+
+```sql
+SELECT id, name
+FROM students;
+```
+
+### Result
+
+| id  | name   |
+| --- | ------ |
+| 101 | Rahul  |
+| 102 | Navin  |
+| 103 | Dikshi |
+| 104 | Amit   |
+
+The query returns only the selected columns.
+
+---
+
+## Important Notes
+
+* `SELECT *` returns all columns from a table.
+* `WHERE` is used to filter rows.
+* `ORDER BY` is used to sort records.
+* `LIMIT` restricts the number of rows returned.
+* `DISTINCT` removes duplicate values.
+* `GROUP BY` creates groups of rows.
+* `HAVING` filters grouped data.
+* `LIKE` is used for pattern matching.
+
+---
+
+## Common Errors
+
+### Missing FROM Clause
+
+```sql
+SELECT id, name;
+```
+
+Error occurs because the table name is missing.
+
+### Using HAVING Without GROUP BY
+
+```sql
+SELECT city
+FROM students
+HAVING COUNT(*) > 1;
+```
+
+HAVING is generally used with GROUP BY.
+
+### Incorrect String Quotes
+
+```sql
+SELECT *
+FROM students
+WHERE city = Pune;
+```
+
+Correct:
+
+```sql
+SELECT *
+FROM students
+WHERE city = 'Pune';
+```
+
+---
+
+## Interview Questions
+
+### Q1. What is the difference between WHERE and HAVING?
+
+**Answer:**
+
+* WHERE filters rows before grouping.
+* HAVING filters groups after GROUP BY.
+
+### Q2. What is the difference between DISTINCT and GROUP BY?
+
+**Answer:**
+
+* DISTINCT removes duplicate rows.
+* GROUP BY groups rows and is commonly used with aggregate functions.
+
+### Q3. What is the purpose of ORDER BY?
+
+**Answer:**
+
+ORDER BY sorts the result set in ascending (ASC) or descending (DESC) order.
+
+### Q4. What is the difference between COUNT(*) and COUNT(column_name)?
+
+**Answer:**
+
+* COUNT(*) counts all rows.
+* COUNT(column_name) counts only non-NULL values.
+
+---
+
+## Commands Covered
+
+### Basic SELECT
+
+```sql
 SELECT * FROM students;
 
-SELECT id, name
-FROM students;
+SELECT name FROM students;
 
-SELECT name, id
-FROM students;
+SELECT id, name FROM students;
+```
 
-Column order can be changed as required.
+### WHERE
 
-3. SELECT with WHERE Clause
-
-Used to filter rows based on conditions.
+```sql
+SELECT *
+FROM students
+WHERE city = 'Pune';
 
 SELECT *
 FROM students
-WHERE id = 101;
-More Examples
+WHERE marks > 80;
+```
+
+### AND / OR
+
+```sql
 SELECT *
 FROM students
-WHERE id = 102;
+WHERE city = 'Pune'
+AND marks > 80;
+```
 
+```sql
 SELECT *
 FROM students
-WHERE id = 103;
+WHERE city = 'Pune'
+OR city = 'Mumbai';
+```
 
+### ORDER BY
+
+```sql
 SELECT *
 FROM students
-WHERE name = 'Navin';
-4. SELECT with LIMIT
+ORDER BY name ASC;
+```
 
-Used to restrict the number of rows returned.
-
+```sql
 SELECT *
 FROM students
-LIMIT 2;
-Examples
-SELECT * FROM students LIMIT 1;
-SELECT * FROM students LIMIT 2;
-SELECT * FROM students LIMIT 3;
-SELECT * FROM students LIMIT 0;
-5. ORDER BY (Ascending)
+ORDER BY marks DESC;
+```
 
-Sort data in ascending order.
+### LIMIT
 
+```sql
 SELECT *
 FROM students
-ORDER BY id ASC;
-Examples
-SELECT * FROM students ORDER BY name ASC;
+LIMIT 3;
+```
 
-SELECT * FROM students ORDER BY city ASC;
+### DISTINCT
 
-SELECT * FROM students ORDER BY id, name ASC;
-6. ORDER BY (Descending)
-
-Sort data in descending order.
-
-SELECT *
-FROM students
-ORDER BY id DESC;
-Examples
-SELECT * FROM students ORDER BY name DESC;
-
-SELECT * FROM students ORDER BY city, name DESC;
-7. DISTINCT
-
-Returns unique values only.
-
+```sql
 SELECT DISTINCT city
 FROM students;
-Examples
-SELECT DISTINCT name
-FROM students;
+```
 
-SELECT DISTINCT id, name
-FROM students;
+### LIKE
 
-SELECT DISTINCT id, name, city
-FROM students;
-8. Aggregate Functions
-COUNT()
-SELECT COUNT(*)
-FROM students;
-COUNT(Column)
-SELECT COUNT(name)
-FROM students;
-COUNT(DISTINCT)
-SELECT COUNT(DISTINCT course)
-FROM students;
-MAX()
-SELECT MAX(marks)
-FROM students;
-MIN()
-SELECT MIN(marks)
-FROM students;
-AVG()
-SELECT AVG(marks)
-FROM students;
-SUM()
-SELECT SUM(marks)
-FROM students;
-9. GROUP BY
-
-Groups rows having the same values.
-
-Count Students in Each City
-SELECT city, COUNT(*) AS student_count
-FROM students
-GROUP BY city;
-Average Marks by Course
-SELECT course, AVG(marks)
-FROM students
-GROUP BY course;
-10. HAVING Clause
-
-Filters grouped data.
-
-Cities Having More Than One Student
-SELECT city, COUNT(*) AS student_count
-FROM students
-GROUP BY city
-HAVING COUNT(*) > 1;
-11. LIKE Operator
-
-Used for pattern matching.
-
-Starts With
+```sql
 SELECT *
 FROM students
 WHERE name LIKE 'N%';
-Ends With
+```
+
+```sql
 SELECT *
 FROM students
 WHERE name LIKE '%a';
-Contains
+```
+
+```sql
 SELECT *
 FROM students
 WHERE name LIKE '%a%';
-12. BETWEEN Operator
+```
 
-Used to find values within a range.
+### BETWEEN
 
+```sql
 SELECT *
 FROM students
 WHERE marks BETWEEN 80 AND 90;
-13. IN Operator
+```
 
-Used as a shortcut for multiple OR conditions.
+### IN
 
+```sql
 SELECT *
 FROM students
 WHERE city IN ('Pune', 'Mumbai');
-Sample Database Used
-Create Database
-CREATE DATABASE student_db;
-USE student_db;
-Create Table
-CREATE TABLE students (
-    id INT PRIMARY KEY,
-    name VARCHAR(100),
-    age INT,
-    city VARCHAR(100),
-    course VARCHAR(50),
-    marks INT
-);
-Insert Data
-INSERT INTO students VALUES
-(101,'Rahul',21,'Pune','BCA',85),
-(102,'Navin',22,'Pune','BCA',90),
-(103,'Dikshi',21,'Mumbai','BTech',95),
-(104,'Amit',23,'Delhi','BCA',70),
-(105,'Priya',22,'Mumbai','BCom',88),
-(106,'Rohit',20,'Pune','BTech',78),
-(107,'Sneha',24,'Delhi','BCA',92),
-(108,'Neha',22,'Mumbai','BCom',89);
-SQL Query Execution Order (Most Important)
-SELECT
-FROM
-WHERE
-GROUP BY
-HAVING
-ORDER BY
-LIMIT
-Logical Execution Order
-FROM
-WHERE
-GROUP BY
-HAVING
-SELECT
-ORDER BY
-LIMIT
-📌 Day 3 Topics Covered
+```
 
-✅ SELECT
-✅ WHERE
-✅ AND / OR
-✅ ORDER BY
-✅ LIMIT
-✅ DISTINCT
-✅ LIKE
-✅ BETWEEN
-✅ IN
-✅ Aggregate Functions
-✅ GROUP BY
-✅ HAVING
-✅ SQL Execution Order
+### Aggregate Functions
+
+```sql
+SELECT COUNT(*) FROM students;
+
+SELECT MAX(marks) FROM students;
+
+SELECT MIN(marks) FROM students;
+
+SELECT AVG(marks) FROM students;
+
+SELECT SUM(marks) FROM students;
+```
+
+### GROUP BY
+
+```sql
+SELECT city, COUNT(*)
+FROM students
+GROUP BY city;
+```
+
+```sql
+SELECT course, AVG(marks)
+FROM students
+GROUP BY course;
+```
+
+### HAVING
+
+```sql
+SELECT city, COUNT(*)
+FROM students
+GROUP BY city
+HAVING COUNT(*) > 1;
+```
+
+---
+
+## Summary
+
+In this chapter, we learned how to retrieve data using the SELECT statement. We explored filtering data with WHERE, sorting records using ORDER BY, limiting rows with LIMIT, removing duplicates using DISTINCT, pattern matching using LIKE, range searching with BETWEEN, multiple-value filtering using IN, aggregate functions, grouping data using GROUP BY, and filtering groups using HAVING.
+
+### SQL Query Execution Order
+
+```sql
+FROM
+WHERE
+GROUP BY
+HAVING
+SELECT
+ORDER BY
+LIMIT
+```
