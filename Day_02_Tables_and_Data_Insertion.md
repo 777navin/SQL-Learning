@@ -1,274 +1,196 @@
-DAY 2 - TABLES & INSERT OPERATIONS
+# Day 2: Tables and Data Insertion
 
-=================================================
-WHAT IS A TABLE?
-=================================================
+## What is a Table?
 
-A Table is a collection of related data organized in rows and columns
-within a database.
+A table is a collection of related data organized into rows and columns within a database.
 
-Row    -> Individual Record
-Column -> Attribute / Field
+- Row → Individual Record
+- Column → Attribute / Field
 
 Example:
 
-+-----+--------+--------+
-| ID  | Name   | City   |
-+-----+--------+--------+
-| 101 | Navin  | Pune   |
-| 102 | Rahul  | Mumbai |
-+-----+--------+--------+
+| ID | Name  | City   |
+|-----|--------|--------|
+| 101 | Navin | Pune   |
+| 102 | Rahul | Mumbai |
 
-=================================================
-CREATE TABLE
-=================================================
+---
 
-Syntax:
+## Create Table
 
+### Syntax
+
+```sql
 CREATE TABLE table_name (
     column1 datatype(size),
     column2 datatype(size),
     column3 datatype(size)
 );
+```
 
-Example:
+### Example
 
+```sql
 CREATE TABLE Student (
     id INT,
     name VARCHAR(100)
 );
+```
 
-Example:
+---
 
-CREATE TABLE Student (
-    name VARCHAR(100),
-    age INT
-);
+## Create Table If Not Exists
 
-=================================================
-CREATE TABLE IF NOT EXISTS
-=================================================
-
-Syntax:
-
+```sql
 CREATE TABLE IF NOT EXISTS Student (
     id INT,
     name VARCHAR(100)
 );
+```
 
-=================================================
-CREATE TABLE AS SELECT
-(Copy Existing Table)
-=================================================
+---
 
-Syntax:
+## Create Table As Select (Copy Existing Table)
 
+### Syntax
+
+```sql
 CREATE TABLE new_table AS
-SELECT column1, column2
+SELECT *
 FROM existing_table;
+```
 
-Example:
+### Example
 
+```sql
 CREATE TABLE Student_Backup AS
 SELECT *
 FROM Student;
+```
 
-=================================================
-SHOW ALL TABLES
-=================================================
+---
 
+## Show All Tables
+
+```sql
 SHOW TABLES;
+```
 
-=================================================
-DESCRIBE TABLE
-=================================================
+---
 
-Used to print table structure.
+## Describe Table
 
-Syntax:
-
-DESCRIBE table_name;
-
-OR
-
-DESC table_name;
-
-Example:
-
+```sql
 DESCRIBE Student;
+```
 
+or
+
+```sql
 DESC Student;
+```
 
-=================================================
-EXAMPLE TABLE
-=================================================
+---
 
+## Example Table
+
+```sql
 CREATE TABLE Students (
     id INT,
     name VARCHAR(100),
     city VARCHAR(50)
 );
+```
 
-=================================================
-INSERT DATA INTO TABLE
-=================================================
+---
 
-Method 1: Insert Specific Columns
+## Insert Data Into Table
 
-Syntax:
+### Insert Specific Columns
 
-INSERT INTO table_name(column1, column2)
-VALUES(value1, value2);
-
-Example:
-
+```sql
 INSERT INTO Students(id, name)
 VALUES(101, 'Rahul');
+```
 
+```sql
 INSERT INTO Students(id, name)
 VALUES(102, 'Ram');
+```
 
+```sql
 INSERT INTO Students(id, name)
 VALUES(103, 'Sham');
+```
 
--------------------------------------------------
+> Only mentioned columns are mandatory.
 
-Important:
+---
 
-When column names are specified:
+## Insert Into All Columns
 
-INSERT INTO Students(id, name)
-VALUES(101, 'Navin');
-
-Only mentioned columns are compulsory.
-
-=================================================
-INSERT INTO ALL COLUMNS
-=================================================
-
-Syntax:
-
-INSERT INTO table_name
-VALUES(value1, value2, value3);
-
-Example:
-
+```sql
 INSERT INTO Students
 VALUES(101, 'Navin', 'Pune');
+```
 
-Note:
-Values must follow the same order as table columns.
+> Values must follow the same order as table columns.
 
-=================================================
-INSERT INTO SPECIFIC COLUMNS
-=================================================
+---
 
-Syntax:
+## Insert Multiple Rows
 
-INSERT INTO Students(id, name)
-VALUES(102, 'Navin');
-
-=================================================
-INSERT MULTIPLE ROWS
-=================================================
-
-Syntax:
-
-INSERT INTO table_name(col1, col2, col3)
-VALUES
-(value1, value2, value3),
-(value4, value5, value6),
-(value7, value8, value9);
-
-Example:
-
+```sql
 INSERT INTO Students(id, name, city)
 VALUES
 (101, 'Rahul', 'Pune'),
 (102, 'Ram', 'Mumbai'),
 (103, 'Sham', 'Delhi');
+```
 
-=================================================
-INSERT DATA FROM ONE TABLE TO ANOTHER
-=================================================
+---
 
-Used to copy data from one table into another table.
+## Insert Data From One Table to Another
 
--------------------------------------------------
-1. INSERT ALL COLUMNS
--------------------------------------------------
+### Copy All Columns
 
-Syntax:
-
-INSERT INTO target_table
-SELECT *
-FROM source_table;
-
-Example:
-
+```sql
 INSERT INTO Students_Backup
 SELECT *
 FROM Students;
+```
 
--------------------------------------------------
-2. INSERT SPECIFIC COLUMNS
--------------------------------------------------
+### Copy Specific Columns
 
-Syntax:
-
-INSERT INTO target_table(col1, col2)
-SELECT col1, col2
-FROM source_table;
-
-Example:
-
+```sql
 INSERT INTO Student_New(name, age)
 SELECT name, age
 FROM Students;
+```
 
--------------------------------------------------
-3. INSERT ROWS USING CONDITION
--------------------------------------------------
+### Copy Rows Using Condition
 
-Syntax:
-
-INSERT INTO target_table
-SELECT *
-FROM source_table
-WHERE condition;
-
-Example:
-
+```sql
 INSERT INTO Students
 SELECT *
 FROM Old_Students
 WHERE age > 20;
+```
 
-=================================================
-COMMANDS COVERED
-=================================================
+---
 
-CREATE TABLE
+## Commands Covered
 
-CREATE TABLE IF NOT EXISTS
+- CREATE TABLE
+- CREATE TABLE IF NOT EXISTS
+- CREATE TABLE AS SELECT
+- SHOW TABLES
+- DESCRIBE / DESC
+- INSERT INTO
+- INSERT INTO VALUES
+- INSERT MULTIPLE ROWS
+- INSERT INTO SELECT
 
-CREATE TABLE AS SELECT
+---
 
-SHOW TABLES
-
-DESCRIBE
-
-DESC
-
-INSERT INTO
-
-INSERT INTO ... VALUES
-
-INSERT MULTIPLE ROWS
-
-INSERT INTO ... SELECT
-
-=================================================
-END OF DAY 2
-TABLES & INSERT OPERATIONS
-=================================================
+### End of Day 2 - Tables & Data Insertion
