@@ -2,9 +2,95 @@
 
 ## Introduction
 
-The `SELECT` statement is the most commonly used SQL command. It is used to retrieve data from one or more tables. Using SELECT, we can fetch specific columns, all columns, filter records, sort data, limit results, remove duplicates, perform calculations, and group data.
+The SELECT statement is the most commonly used SQL command. It is used to retrieve data from one or more tables.
+
+Using SELECT, we can:
+
+- Retrieve all records
+- Retrieve specific columns
+- Filter records
+- Sort data
+- Limit results
+- Remove duplicates
+- Search patterns
+- Use aggregate functions
+- Group records
+- Filter grouped results
+
+For all examples below, we will use the `student_db.students` table.
 
 ---
+
+## Database Setup Used
+
+### Create Database
+
+```sql
+CREATE DATABASE student_db;
+```
+
+### Use Database
+
+```sql
+USE student_db;
+```
+
+### Create Table
+
+```sql
+CREATE TABLE students(
+    id INT PRIMARY KEY,
+    name VARCHAR(50),
+    age INT,
+    city VARCHAR(50),
+    course VARCHAR(50),
+    marks INT
+);
+```
+
+### Insert Data
+
+```sql
+INSERT INTO students(id,name,age,city,course,marks)
+VALUES
+(101,'Rahul',21,'Pune','BCA',85),
+(102,'Navin',22,'Pune','BCA',90),
+(103,'Dikshi',21,'Mumbai','BTech',95),
+(104,'Amit',23,'Delhi','BCA',70),
+(105,'Priya',22,'Mumbai','BCom',88),
+(106,'Rohit',20,'Pune','BTech',76),
+(107,'Sneha',21,'Delhi','BCA',92),
+(108,'Neha',22,'Mumbai','BCom',80);
+```
+
+---
+
+## View Complete Data
+
+```sql
+SELECT * FROM students;
+```
+
+### Output
+
+```text
++-----+--------+------+--------+--------+-------+
+| id  | name   | age  | city   | course | marks |
++-----+--------+------+--------+--------+-------+
+| 101 | Rahul  | 21   | Pune   | BCA    | 85    |
+| 102 | Navin  | 22   | Pune   | BCA    | 90    |
+| 103 | Dikshi | 21   | Mumbai | BTech  | 95    |
+| 104 | Amit   | 23   | Delhi  | BCA    | 70    |
+| 105 | Priya  | 22   | Mumbai | BCom   | 88    |
+| 106 | Rohit  | 20   | Pune   | BTech  | 76    |
+| 107 | Sneha  | 21   | Delhi  | BCA    | 92    |
+| 108 | Neha   | 22   | Mumbai | BCom   | 80    |
++-----+--------+------+--------+--------+-------+
+```
+
+---
+
+# SELECT Statement
 
 ## Syntax
 
@@ -13,7 +99,7 @@ SELECT column_name
 FROM table_name;
 ```
 
-Retrieve all columns:
+### Retrieve All Columns
 
 ```sql
 SELECT *
@@ -22,193 +108,136 @@ FROM table_name;
 
 ---
 
-## Example
+# Select Specific Columns
 
-### Select Specific Columns
+## Query
 
 ```sql
-SELECT id, name
+SELECT id,name
 FROM students;
 ```
-
-### Select All Columns
-
-```sql
-SELECT *
-FROM students;
-```
-
-### Filter Data Using WHERE
-
-```sql
-SELECT *
-FROM students
-WHERE city = 'Pune';
-```
-
-### Sort Data
-
-```sql
-SELECT *
-FROM students
-ORDER BY marks DESC;
-```
-
-### Limit Records
-
-```sql
-SELECT *
-FROM students
-LIMIT 3;
-```
-
----
 
 ## Output
 
-### Query
-
-```sql
-SELECT id, name
-FROM students;
-```
-
-### Result
-
+```text
++-----+--------+
 | id  | name   |
-| --- | ------ |
++-----+--------+
 | 101 | Rahul  |
 | 102 | Navin  |
 | 103 | Dikshi |
 | 104 | Amit   |
-
-The query returns only the selected columns.
+| 105 | Priya  |
+| 106 | Rohit  |
+| 107 | Sneha  |
+| 108 | Neha   |
++-----+--------+
+```
 
 ---
 
-## Important Notes
+# Select All Columns
 
-* `SELECT *` returns all columns from a table.
-* `WHERE` is used to filter rows.
-* `ORDER BY` is used to sort records.
-* `LIMIT` restricts the number of rows returned.
-* `DISTINCT` removes duplicate values.
-* `GROUP BY` creates groups of rows.
-* `HAVING` filters grouped data.
-* `LIKE` is used for pattern matching.
+## Query
+
+```sql
+SELECT *
+FROM students;
+```
 
 ---
 
-## Common Errors
+# WHERE Clause
 
-### Missing FROM Clause
+Used to filter records.
 
-```sql
-SELECT id, name;
-```
-
-Error occurs because the table name is missing.
-
-### Using HAVING Without GROUP BY
-
-```sql
-SELECT city
-FROM students
-HAVING COUNT(*) > 1;
-```
-
-HAVING is generally used with GROUP BY.
-
-### Incorrect String Quotes
+## Students From Pune
 
 ```sql
 SELECT *
 FROM students
-WHERE city = Pune;
+WHERE city='Pune';
 ```
 
-Correct:
+### Output
 
-```sql
-SELECT *
-FROM students
-WHERE city = 'Pune';
+```text
++-----+-------+------+-------+--------+-------+
+| id  | name  | age  | city  | course | marks |
++-----+-------+------+-------+--------+-------+
+| 101 | Rahul | 21   | Pune  | BCA    | 85    |
+| 102 | Navin | 22   | Pune  | BCA    | 90    |
+| 106 | Rohit | 20   | Pune  | BTech  | 76    |
++-----+-------+------+-------+--------+-------+
 ```
 
 ---
 
-## Interview Questions
-
-### Q1. What is the difference between WHERE and HAVING?
-
-**Answer:**
-
-* WHERE filters rows before grouping.
-* HAVING filters groups after GROUP BY.
-
-### Q2. What is the difference between DISTINCT and GROUP BY?
-
-**Answer:**
-
-* DISTINCT removes duplicate rows.
-* GROUP BY groups rows and is commonly used with aggregate functions.
-
-### Q3. What is the purpose of ORDER BY?
-
-**Answer:**
-
-ORDER BY sorts the result set in ascending (ASC) or descending (DESC) order.
-
-### Q4. What is the difference between COUNT(*) and COUNT(column_name)?
-
-**Answer:**
-
-* COUNT(*) counts all rows.
-* COUNT(column_name) counts only non-NULL values.
-
----
-
-## Commands Covered
-
-### Basic SELECT
+## Marks Greater Than 80
 
 ```sql
-SELECT * FROM students;
-
-SELECT name FROM students;
-
-SELECT id, name FROM students;
-```
-
-### WHERE
-
-```sql
-SELECT *
-FROM students
-WHERE city = 'Pune';
-
 SELECT *
 FROM students
 WHERE marks > 80;
 ```
 
-### AND / OR
+### Output
+
+```text
+101 Rahul
+102 Navin
+103 Dikshi
+105 Priya
+107 Sneha
+```
+
+---
+
+# AND Operator
 
 ```sql
 SELECT *
 FROM students
-WHERE city = 'Pune'
-AND marks > 80;
+WHERE city='Pune'
+AND marks>80;
 ```
+
+### Output
+
+```text
+Rahul
+Navin
+```
+
+---
+
+# OR Operator
 
 ```sql
 SELECT *
 FROM students
-WHERE city = 'Pune'
-OR city = 'Mumbai';
+WHERE city='Pune'
+OR city='Mumbai';
 ```
 
-### ORDER BY
+### Output
+
+```text
+Rahul
+Navin
+Dikshi
+Priya
+Rohit
+Neha
+```
+
+---
+
+# ORDER BY
+
+Used to sort records.
+
+## Ascending Order
 
 ```sql
 SELECT *
@@ -216,13 +245,49 @@ FROM students
 ORDER BY name ASC;
 ```
 
+### Output
+
+```text
+Amit
+Dikshi
+Navin
+Neha
+Priya
+Rahul
+Rohit
+Sneha
+```
+
+---
+
+## Descending Order
+
 ```sql
 SELECT *
 FROM students
 ORDER BY marks DESC;
 ```
 
-### LIMIT
+### Output
+
+```text
+95
+92
+90
+88
+85
+80
+76
+70
+```
+
+---
+
+# LIMIT
+
+Used to restrict number of rows.
+
+## Query
 
 ```sql
 SELECT *
@@ -230,14 +295,42 @@ FROM students
 LIMIT 3;
 ```
 
-### DISTINCT
+### Output
+
+```text
+101 Rahul
+102 Navin
+103 Dikshi
+```
+
+---
+
+# DISTINCT
+
+Used to remove duplicate values.
+
+## Query
 
 ```sql
 SELECT DISTINCT city
 FROM students;
 ```
 
-### LIKE
+### Output
+
+```text
+Pune
+Mumbai
+Delhi
+```
+
+---
+
+# LIKE Operator
+
+Used for pattern matching.
+
+## Names Starting With N
 
 ```sql
 SELECT *
@@ -245,11 +338,34 @@ FROM students
 WHERE name LIKE 'N%';
 ```
 
+### Output
+
+```text
+Navin
+Neha
+```
+
+---
+
+## Names Ending With a
+
 ```sql
 SELECT *
 FROM students
 WHERE name LIKE '%a';
 ```
+
+### Output
+
+```text
+Priya
+Neha
+Sneha
+```
+
+---
+
+## Names Containing a
 
 ```sql
 SELECT *
@@ -257,7 +373,24 @@ FROM students
 WHERE name LIKE '%a%';
 ```
 
-### BETWEEN
+### Output
+
+```text
+Rahul
+Navin
+Amit
+Priya
+Sneha
+Neha
+```
+
+---
+
+# BETWEEN
+
+Used to find values within a range.
+
+## Query
 
 ```sql
 SELECT *
@@ -265,46 +398,253 @@ FROM students
 WHERE marks BETWEEN 80 AND 90;
 ```
 
-### IN
+### Output
+
+```text
+Rahul
+Navin
+Priya
+Neha
+```
+
+---
+
+# IN Operator
+
+Used to match multiple values.
+
+## Query
 
 ```sql
 SELECT *
 FROM students
-WHERE city IN ('Pune', 'Mumbai');
+WHERE city IN ('Pune','Mumbai');
 ```
 
-### Aggregate Functions
+### Output
 
-```sql
-SELECT COUNT(*) FROM students;
-
-SELECT MAX(marks) FROM students;
-
-SELECT MIN(marks) FROM students;
-
-SELECT AVG(marks) FROM students;
-
-SELECT SUM(marks) FROM students;
+```text
+Rahul
+Navin
+Dikshi
+Priya
+Rohit
+Neha
 ```
 
-### GROUP BY
+---
+
+# Aggregate Functions
+
+## COUNT
 
 ```sql
-SELECT city, COUNT(*)
+SELECT COUNT(*)
+FROM students;
+```
+
+### Output
+
+```text
+8
+```
+
+---
+
+## MAX
+
+```sql
+SELECT MAX(marks)
+FROM students;
+```
+
+### Output
+
+```text
+95
+```
+
+---
+
+## MIN
+
+```sql
+SELECT MIN(marks)
+FROM students;
+```
+
+### Output
+
+```text
+70
+```
+
+---
+
+## AVG
+
+```sql
+SELECT AVG(marks)
+FROM students;
+```
+
+### Output
+
+```text
+84.50
+```
+
+---
+
+## SUM
+
+```sql
+SELECT SUM(marks)
+FROM students;
+```
+
+### Output
+
+```text
+676
+```
+
+---
+
+# GROUP BY
+
+Used to create groups.
+
+## Count Students By City
+
+```sql
+SELECT city,COUNT(*)
 FROM students
 GROUP BY city;
 ```
 
+### Output
+
+```text
++--------+----------+
+| city   | COUNT(*) |
++--------+----------+
+| Pune   | 3        |
+| Mumbai | 3        |
+| Delhi  | 2        |
++--------+----------+
+```
+
+---
+
+## Average Marks By Course
+
 ```sql
-SELECT course, AVG(marks)
+SELECT course,AVG(marks)
 FROM students
 GROUP BY course;
 ```
 
-### HAVING
+### Output
+
+```text
++--------+------------+
+| course | AVG(marks) |
++--------+------------+
+| BCA    | 84.25      |
+| BTech  | 85.50      |
+| BCom   | 84.00      |
++--------+------------+
+```
+
+---
+
+# HAVING
+
+Used to filter grouped data.
+
+## Query
 
 ```sql
-SELECT city, COUNT(*)
+SELECT city,COUNT(*)
+FROM students
+GROUP BY city
+HAVING COUNT(*) > 1;
+```
+
+### Output
+
+```text
+Pune    3
+Mumbai  3
+Delhi   2
+```
+
+---
+
+# SQL Query Execution Order
+
+```text
+1. FROM
+2. WHERE
+3. GROUP BY
+4. HAVING
+5. SELECT
+6. ORDER BY
+7. LIMIT
+```
+
+---
+
+# Important Notes
+
+- SELECT * returns all columns.
+- WHERE filters rows.
+- ORDER BY sorts records.
+- LIMIT restricts output rows.
+- DISTINCT removes duplicates.
+- GROUP BY creates groups.
+- HAVING filters groups.
+- LIKE performs pattern matching.
+- Aggregate functions return summarized results.
+
+---
+
+# Common Errors
+
+## Missing FROM Clause
+
+```sql
+SELECT id,name;
+```
+
+### Error
+
+```text
+No table specified.
+```
+
+### Correct
+
+```sql
+SELECT id,name
+FROM students;
+```
+
+---
+
+## HAVING Without GROUP BY
+
+```sql
+SELECT city
+FROM students
+HAVING COUNT(*) > 1;
+```
+
+### Correct
+
+```sql
+SELECT city,COUNT(*)
 FROM students
 GROUP BY city
 HAVING COUNT(*) > 1;
@@ -312,18 +652,82 @@ HAVING COUNT(*) > 1;
 
 ---
 
-## Summary
-
-In this chapter, we learned how to retrieve data using the SELECT statement. We explored filtering data with WHERE, sorting records using ORDER BY, limiting rows with LIMIT, removing duplicates using DISTINCT, pattern matching using LIKE, range searching with BETWEEN, multiple-value filtering using IN, aggregate functions, grouping data using GROUP BY, and filtering groups using HAVING.
-
-### SQL Query Execution Order
+## Missing Quotes
 
 ```sql
-FROM
-WHERE
-GROUP BY
-HAVING
-SELECT
-ORDER BY
-LIMIT
+SELECT *
+FROM students
+WHERE city=Pune;
 ```
+
+### Correct
+
+```sql
+SELECT *
+FROM students
+WHERE city='Pune';
+```
+
+---
+
+# Interview Questions
+
+## Q1. Difference Between WHERE and HAVING?
+
+### Answer
+
+- WHERE filters rows before grouping.
+- HAVING filters groups after GROUP BY.
+
+---
+
+## Q2. Difference Between DISTINCT and GROUP BY?
+
+### Answer
+
+- DISTINCT removes duplicates.
+- GROUP BY creates groups for aggregate calculations.
+
+---
+
+## Q3. Purpose of ORDER BY?
+
+### Answer
+
+ORDER BY sorts the result set in ascending (ASC) or descending (DESC) order.
+
+---
+
+## Q4. Difference Between COUNT(*) and COUNT(column_name)?
+
+### Answer
+
+COUNT(*) counts all rows.
+
+COUNT(column_name) counts only non-NULL values.
+
+---
+
+# Summary
+
+In this chapter, we learned:
+
+- SELECT
+- WHERE
+- AND
+- OR
+- ORDER BY
+- LIMIT
+- DISTINCT
+- LIKE
+- BETWEEN
+- IN
+- COUNT
+- MAX
+- MIN
+- AVG
+- SUM
+- GROUP BY
+- HAVING
+
+These commands form the foundation of SQL data retrieval and are heavily used in interviews, projects, and real-world database applications.
