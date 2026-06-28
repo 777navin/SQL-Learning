@@ -1,15 +1,8 @@
-# Day 8: CREATE DATABASE and CREATE TABLE with Constraints
+# Day 8: SQL DML Commands (INSERT, UPDATE & DELETE)
 
 ## Introduction
 
-In SQL, a database is used to store related data. A table is created inside a database to organize data into rows and columns.
-
-In this task, we create a database named `bank_db` and a table named `employees` with the following constraints:
-
-* `emp_id` should be unique and not allow NULL values.
-* `emp_id` should automatically increment.
-* `name` should not allow NULL values.
-* `desig` should have a default value of `'Probation'`.
+Data Manipulation Language (DML) is used to add, modify, and remove data from database tables. The three most commonly used DML commands are **INSERT**, **UPDATE**, and **DELETE**. These commands affect only the data inside a table, not the table structure.
 
 ---
 
@@ -38,77 +31,21 @@ CREATE TABLE employees(
 );
 ```
 
----
-
-## View Table Structure
+### Insert Data
 
 ```sql
-DESC employees;
-```
-
-### Output
-
-```text
-+--------+-------------+------+-----+------------+----------------+
-| Field  | Type        | Null | Key | Default    | Extra          |
-+--------+-------------+------+-----+------------+----------------+
-| emp_id | int         | NO   | PRI | NULL       | auto_increment |
-| name   | varchar(50) | NO   |     | NULL       |                |
-| desig  | varchar(50) | YES  |     | Probation  |                |
-| dept   | varchar(50) | YES  |     | NULL       |                |
-+--------+-------------+------+-----+------------+----------------+
+INSERT INTO employees (emp_id, name, desig, dept)
+VALUES
+(101, 'Raju', 'Manager', 'Loan'),
+(102, 'Sham', 'Cashier', 'Cash'),
+(103, 'Paul', 'Associate', 'Loan'),
+(104, 'Alex', 'Accountant', 'Account'),
+(105, 'Victor', 'Associate', 'Deposit');
 ```
 
 ---
 
-## Syntax
-
-### Create Database
-
-```sql
-CREATE DATABASE database_name;
-```
-
-### Use Database
-
-```sql
-USE database_name;
-```
-
-### Create Table
-
-```sql
-CREATE TABLE table_name(
-    column_name datatype constraints
-);
-```
-
----
-
-## Example 1
-
-### Query
-
-```sql
-INSERT INTO employees(name, dept)
-VALUES('Rahul', 'IT');
-```
-
-### Output
-
-```text
-Query OK, 1 row affected
-```
-
-### Explanation
-
-Since `emp_id` is AUTO_INCREMENT, MySQL automatically generates its value.
-
----
-
-## Example 2
-
-### Query
+## View Data
 
 ```sql
 SELECT * FROM employees;
@@ -117,47 +54,117 @@ SELECT * FROM employees;
 ### Output
 
 ```text
-+--------+-------+-----------+------+
-| emp_id | name  | desig     | dept |
-+--------+-------+-----------+------+
-| 1      | Rahul | Probation | IT   |
-+--------+-------+-----------+------+
++--------+--------+------------+----------+
+| emp_id | name   | desig      | dept     |
++--------+--------+------------+----------+
+| 101    | Raju   | Manager    | Loan     |
+| 102    | Sham   | Cashier    | Cash     |
+| 103    | Paul   | Associate  | Loan     |
+| 104    | Alex   | Accountant | Account  |
+| 105    | Victor | Associate  | Deposit  |
++--------+--------+------------+----------+
 ```
-
-### Explanation
-
-The `desig` column automatically gets the default value `'Probation'`.
 
 ---
 
-## Example 3
+## Syntax
+
+### INSERT
+
+```sql
+INSERT INTO table_name(column1, column2, ...)
+VALUES(value1, value2, ...);
+```
+
+### UPDATE
+
+```sql
+UPDATE table_name
+SET column_name = value
+WHERE condition;
+```
+
+### DELETE
+
+```sql
+DELETE FROM table_name
+WHERE condition;
+```
+
+---
+
+## Example 1 - INSERT
 
 ### Query
 
 ```sql
-INSERT INTO employees(name, desig, dept)
-VALUES('Priya', 'Manager', 'HR');
+INSERT INTO employees(emp_id, name, desig, dept)
+VALUES
+(106, 'Kiran', 'Clerk', 'Loan');
 ```
 
 ### Output
 
 ```text
-Query OK, 1 row affected
+1 row inserted successfully.
 ```
 
 ### Explanation
 
-Since a designation is provided, the default value is not used.
+A new employee record is inserted into the `employees` table.
+
+---
+
+## Example 2 - UPDATE
+
+### Query
+
+```sql
+UPDATE employees
+SET dept = 'IT'
+WHERE emp_id = 103;
+```
+
+### Output
+
+```text
+Query OK, 1 row affected.
+```
+
+### Explanation
+
+The department of employee **Paul (emp_id = 103)** is changed from **Loan** to **IT**.
+
+---
+
+## Example 3 - DELETE
+
+### Query
+
+```sql
+DELETE FROM employees
+WHERE emp_id = 102;
+```
+
+### Output
+
+```text
+Query OK, 1 row affected.
+```
+
+### Explanation
+
+The employee record with **emp_id = 102 (Sham)** is permanently removed from the table.
 
 ---
 
 ## Important Notes
 
-* PRIMARY KEY does not allow duplicate values.
-* PRIMARY KEY does not allow NULL values.
-* AUTO_INCREMENT automatically generates the next number.
-* NOT NULL ensures a value must be provided.
-* DEFAULT assigns a value when none is specified.
+* `INSERT` adds new rows to a table.
+* `UPDATE` modifies existing rows.
+* `DELETE` removes rows but keeps the table structure.
+* Always use a `WHERE` clause with `UPDATE` and `DELETE` to avoid affecting all rows.
+* `AUTO_INCREMENT` automatically generates IDs if `emp_id` is not specified during insertion.
 
 ---
 
@@ -168,26 +175,21 @@ Since a designation is provided, the default value is not used.
 #### Wrong
 
 ```sql
-INSERT INTO employees(emp_id,name)
-VALUES(1,'Rahul');
-
-INSERT INTO employees(emp_id,name)
-VALUES(1,'Priya');
+UPDATE employees
+SET dept = 'IT';
 ```
 
 #### Correct
 
 ```sql
-INSERT INTO employees(name)
-VALUES('Rahul');
-
-INSERT INTO employees(name)
-VALUES('Priya');
+UPDATE employees
+SET dept = 'IT'
+WHERE emp_id = 103;
 ```
 
 #### Reason
 
-PRIMARY KEY columns cannot contain duplicate values.
+Without the `WHERE` clause, **every employee's department** will become `IT`.
 
 ---
 
@@ -196,70 +198,65 @@ PRIMARY KEY columns cannot contain duplicate values.
 #### Wrong
 
 ```sql
-INSERT INTO employees(name)
-VALUES(NULL);
+DELETE employees
+WHERE emp_id = 102;
 ```
 
 #### Correct
 
 ```sql
-INSERT INTO employees(name)
-VALUES('Rahul');
+DELETE FROM employees
+WHERE emp_id = 102;
 ```
 
 #### Reason
 
-The `name` column is defined with NOT NULL.
+The `DELETE` statement must always use the `FROM` keyword.
 
 ---
 
 ## Interview Questions
 
-### Q1. What is a PRIMARY KEY?
+### Q1. What is the difference between INSERT, UPDATE, and DELETE?
 
 #### Answer
 
-A PRIMARY KEY uniquely identifies each record in a table and does not allow NULL or duplicate values.
+* **INSERT** adds new records.
+* **UPDATE** modifies existing records.
+* **DELETE** removes existing records.
 
 ---
 
-### Q2. What is AUTO_INCREMENT?
+### Q2. Why is the WHERE clause important in UPDATE and DELETE?
 
 #### Answer
 
-AUTO_INCREMENT automatically generates sequential numeric values for a column.
+The `WHERE` clause specifies which rows should be modified or deleted. Without it, all rows in the table are affected.
 
 ---
 
-### Q3. What is the purpose of DEFAULT?
+### Q3. Why does UPDATE not use the FROM keyword?
 
 #### Answer
 
-DEFAULT provides a predefined value when no value is supplied during insertion.
+`UPDATE` directly specifies the table to modify:
 
----
+```sql
+UPDATE employees
+```
 
-### Q4. Difference between PRIMARY KEY and UNIQUE?
-
-#### Answer
-
-PRIMARY KEY does not allow NULL values and only one PRIMARY KEY can exist in a table. UNIQUE allows NULL values (depending on DBMS) and multiple UNIQUE constraints can exist.
+The `FROM` keyword is unnecessary in standard MySQL syntax. `DELETE`, however, requires `FROM` because it specifies the table from which rows are removed.
 
 ---
 
 ## Commands Covered
 
 ```sql
-CREATE DATABASE
-USE
-CREATE TABLE
-DESC
 INSERT INTO
+UPDATE
+SET
+DELETE FROM
 SELECT
-PRIMARY KEY
-AUTO_INCREMENT
-NOT NULL
-DEFAULT
 ```
 
 ---
@@ -267,24 +264,30 @@ DEFAULT
 ## SQL Query Execution Order (If Applicable)
 
 ```text
-1. CREATE DATABASE bank_db
-2. USE bank_db
-3. CREATE TABLE employees
-4. INSERT records
-5. SELECT records
-6. DESC employees
+INSERT
+1. Identify the target table.
+2. Validate column values.
+3. Insert the new row.
+
+UPDATE
+1. Find rows using the WHERE clause.
+2. Update specified columns.
+3. Save the changes.
+
+DELETE
+1. Find rows using the WHERE clause.
+2. Remove matching rows.
+3. Save the changes.
 ```
 
 ---
 
 ## Summary
 
-* Created database `bank_db`.
-* Created table `employees`.
-* Applied PRIMARY KEY on `emp_id`.
-* Applied AUTO_INCREMENT on `emp_id`.
-* Applied NOT NULL on `name`.
-* Applied DEFAULT 'Probation' on `desig`.
-* Verified table structure using DESC.
-* Inserted records successfully.
-   
+* DML commands manipulate data stored in tables.
+* `INSERT` is used to add new records.
+* `UPDATE` modifies existing records.
+* `DELETE` removes records from a table.
+* Always use the `WHERE` clause with `UPDATE` and `DELETE` for safe operations.
+* `DELETE` removes data only; the table structure remains unchanged.
+* `UPDATE` does not use `FROM`, while `DELETE` requires `FROM`.
