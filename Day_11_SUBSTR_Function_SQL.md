@@ -1,4 +1,4 @@
-# Day 10: SUBSTR() Function in SQL
+# Day 11: SUBSTR() Function in SQL
 
 ## Introduction
 
