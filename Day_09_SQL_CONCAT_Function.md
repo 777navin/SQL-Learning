@@ -1,4 +1,4 @@
-# Day X: CONCAT() Function in SQL
+# Day 9: CONCAT() Function in SQL
 
 ## Introduction
 
