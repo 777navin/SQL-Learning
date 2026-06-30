@@ -1,4 +1,4 @@
-# Day 15: INSERT(), LEFT(), RIGHT(), REPEAT() & TRIM() Functions
+# Day 16: INSERT(), LEFT(), RIGHT(), REPEAT() & TRIM() Functions
 
 ## Introduction
 
