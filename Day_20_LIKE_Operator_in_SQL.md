@@ -1,4 +1,4 @@
-# Day 19: LIKE Operator in SQL (MySQL)
+# Day 20: LIKE Operator in SQL (MySQL)
 
 ## Introduction
 
